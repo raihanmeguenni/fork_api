@@ -50,7 +50,10 @@ export const getUserWatchlist = async () => {
   return data.results;
 };
 
-export const addMovieToWatchlist = async (movieId) => {
+export const updateMovieFromWatchlist = async (
+  movieId,
+  addToWatchlist = true
+) => {
   const headers = getTmdbHeaders();
   const accountId = process.env.TMDB_ACCOUNT_ID;
   const response = await fetch(
@@ -60,7 +63,7 @@ export const addMovieToWatchlist = async (movieId) => {
       method: "POST",
       body: JSON.stringify({
         media_id: movieId,
-        watchlist: true,
+        watchlist: addToWatchlist,
         media_type: "movie",
       }),
     }
