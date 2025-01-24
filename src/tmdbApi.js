@@ -1,6 +1,8 @@
 const getTmdbHeaders = () => {
   return {
     headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${process.env.TMDB_API_KEY}`,
     },
   };
@@ -19,7 +21,6 @@ export const searchMovies = async (query) => {
       ...headers,
     }
   );
-  console.log(response.status);
 
   if (!response.ok) {
     throw new Error(`Failed to fetch movies: ${response.status}`);
@@ -47,4 +48,31 @@ export const getUserWatchlist = async () => {
   const data = await response.json();
 
   return data.results;
+};
+
+export const addMovieToWatchlist = async (movieId) => {
+  const headers = getTmdbHeaders();
+  const accountId = process.env.TMDB_ACCOUNT_ID;
+  const response = await fetch(
+    `https://api.themoviedb.org/3/account/${accountId}/watchlist`,
+    {
+      ...headers,
+      method: "POST",
+      body: JSON.stringify({
+        media_id: movieId,
+        watchlist: true,
+        media_type: "movie",
+      }),
+    }
+  );
+
+  if (!response.ok) {
+    const error = new Error(
+      `Failed to add movie to watchlist: ${response.status}`
+    );
+    error.response = response;
+    throw error;
+  }
+
+  return response.json();
 };
