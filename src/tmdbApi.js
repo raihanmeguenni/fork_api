@@ -29,3 +29,22 @@ export const searchMovies = async (query) => {
 
   return data.results;
 };
+
+export const getUserWatchlist = async () => {
+  const headers = getTmdbHeaders();
+  const accountId = process.env.TMDB_ACCOUNT_ID;
+  const response = await fetch(
+    `https://api.themoviedb.org/3/account/${accountId}/watchlist/movies`,
+    {
+      ...headers,
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch watchlist: ${response.status}`);
+  }
+
+  const data = await response.json();
+
+  return data.results;
+};
