@@ -6,6 +6,7 @@ export const getApiMovies = async (request, reply) => {
     console.log(movies);
     reply.send(movies);
   } catch (error) {
+    console.error(error);
     reply.status(500).send({ error: error.message });
   }
 };
