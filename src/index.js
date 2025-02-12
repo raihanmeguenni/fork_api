@@ -102,3 +102,5 @@ fastify.listen(
     }
   }
 );
+
+console.log(process.env.RENDER_EXTERNAL_URL);
