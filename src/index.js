@@ -21,7 +21,7 @@ await fastify.register(FastifySwagger, {
     },
     servers: [
       {
-        url: "http://localhost:3000",
+        url: process.env.RENDER_EXTERNAL_URL || 'localhost:3000',
         description: "Development server",
       },
     ],
