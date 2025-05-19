@@ -1,4 +1,4 @@
-import "dotenv/config";
+import "dotenv/config"; //commentaire
 import Fastify from "fastify";
 import { getApiMovies } from "./getApiMovies.js";
 import { getApiWatchlist } from "./getApiWatchlist.js";
@@ -104,3 +104,4 @@ fastify.listen(
 );
 
 console.log(process.env.RENDER_EXTERNAL_URL);
+
